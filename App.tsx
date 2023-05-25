@@ -1,17 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import SplashScreen from 'react-native-splash-screen';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
+import useAppReady from './src/hooks/useAppReady';
 
 function App() {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
+  const {onReady} = useAppReady();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={onReady}>
       <Tabs />
     </NavigationContainer>
   );
