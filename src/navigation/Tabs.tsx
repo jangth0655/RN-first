@@ -4,7 +4,7 @@ import TV from '../screens/tv';
 import Search from '../screens/search';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-type TabParamlist = {
+export type TabParamlist = {
   Movies: undefined;
   TV: undefined;
   Search: undefined;

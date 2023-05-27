@@ -13,5 +13,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     curly: 'off',
     'react/no-unstable-nested-components': 'off',
+    'jsx-quotes': 'off',
+    quotes: ['warn', 'single'],
   },
 };

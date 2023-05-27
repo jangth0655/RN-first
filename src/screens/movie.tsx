@@ -1,6 +1,16 @@
-import {Text, View} from 'react-native';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {Pressable, Text, View} from 'react-native';
+import {TabParamlist} from '../navigation/Tabs';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootParamList} from '../navigation/RootNav';
 
-export default function Movies() {
+type MovieProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamlist, 'Movies'>,
+  NativeStackScreenProps<RootParamList, 'Stack'>
+>;
+
+export default function Movies({navigation}: MovieProps) {
   return (
     <View
       style={{
@@ -9,7 +19,10 @@ export default function Movies() {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>Movies</Text>
+      <Pressable
+        onPress={() => navigation.navigate('Stack', {screen: 'three'})}>
+        <Text>Go to Stack</Text>
+      </Pressable>
     </View>
   );
 }
