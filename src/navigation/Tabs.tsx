@@ -17,27 +17,44 @@ export default function Tabs() {
     <Tab.Navigator
       initialRouteName="Movies"
       screenOptions={{
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: 'rgb(251 191 36)',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: 'rgb(17 24 39)',
+          height: 50,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 18,
+        },
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'rgb(17 24 39)',
+          height: 40,
+        },
       }}>
       <Tab.Screen
         name="Movies"
         component={Movies}
         options={{
-          tabBarIcon: () => <Icon name="film" size={25} />,
+          tabBarIcon: ({color}) => <Icon name="film" size={20} color={color} />,
         }}
       />
       <Tab.Screen
         name="TV"
         component={TV}
         options={{
-          tabBarIcon: () => <Icon name="tv" size={25} />,
+          tabBarIcon: ({color}) => <Icon name="tv" size={20} color={color} />,
         }}
       />
       <Tab.Screen
         name="Search"
         component={Search}
         options={{
-          tabBarIcon: () => <Icon name="search" size={25} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="search" size={20} color={color} />
+          ),
         }}
       />
     </Tab.Navigator>
