@@ -4,6 +4,8 @@ import Popular from './Popular';
 import {NOW_PLAYING, POPULAR, UP_COMING} from '../../service/movies';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 import Upcomming from './Upcomming';
+import {useState} from 'react';
+import {useQueryClient} from 'react-query';
 
 const Container = styled.View`
   background-color: ${props => props.theme.color.mainDark};
@@ -16,6 +18,8 @@ type ListItemsType = {
 };
 
 export default function MovieList() {
+  const [refreshing, setRefresing] = useState(false);
+  const queryClient = useQueryClient();
   const listItems: ListItemsType[] = [
     {id: '1', type: NOW_PLAYING},
     {id: '2', type: POPULAR},
@@ -35,12 +39,20 @@ export default function MovieList() {
     }
   };
 
+  const onRefresh = async () => {
+    setRefresing(true);
+    await queryClient.refetchQueries('movies');
+    setRefresing(false);
+  };
+
   return (
     <Container>
       <FlatList
         data={listItems}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
       />
     </Container>
   );
