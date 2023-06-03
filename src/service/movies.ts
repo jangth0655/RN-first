@@ -22,19 +22,18 @@ export type MovieType = {
 } & BaseType;
 
 export const fetchNowPlaying = async (page = 1) => {
-  const result = await (await api.get(`/movie/now_playing?page=${page}`)).data;
-
-  return result;
+  return await (
+    await api.get(`/movie/now_playing?page=${page}`)
+  ).data;
 };
 
 export const fetchPopular = async (page = 1) => {
-  const result = await (await api.get(`/movie/popular?page=${page}`)).data;
-
-  return result;
+  return await (
+    await api.get(`/movie/popular?page=${page}`)
+  ).data;
 };
 
-export const fetchUpcomming = async (page = 1) => {
-  const result = await (await api.get(`/movie/upcoming?page=${page}`)).data;
-
+export const fetchUpcomming = async (page: any) => {
+  const result = await (await api.get(`/movie/upcoming?page=1`)).data;
   return result;
 };

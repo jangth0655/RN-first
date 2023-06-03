@@ -4,11 +4,21 @@ import {FlatList} from 'react-native';
 import UpcomingItem from '../renderItem/UpcomingItem';
 
 export default function Upcomming() {
-  const {upcomming, upcommingLoading} = useUpcomming();
+  const {upcomming, upcommingLoading, fetchNextPage, hasNextPage} =
+    useUpcomming();
+
+  const onEndReached = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
   return (
     <Container>
       <ListTitle>개봉 영화</ListTitle>
       <FlatList
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.4}
         style={{marginLeft: 30}}
         data={upcomming}
         ItemSeparatorComponent={Seperator}

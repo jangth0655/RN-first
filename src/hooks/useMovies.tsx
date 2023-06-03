@@ -1,4 +1,4 @@
-import {useQuery} from 'react-query';
+import {useInfiniteQuery, useQuery} from 'react-query';
 import {
   MovieType,
   NOW_PLAYING,
@@ -47,10 +47,13 @@ export const usePopular = () => {
 };
 
 export const useUpcomming = () => {
-  const {data, isLoading, error} = useQuery<MovieType>(
-    ['movies', UP_COMING],
-    () => fetchUpcomming(),
-  );
+  const {data, isLoading, error, hasNextPage, fetchNextPage} =
+    useInfiniteQuery<MovieType>(['movies', UP_COMING], fetchUpcomming, {
+      getNextPageParam: lastPage => {
+        const nextPage = lastPage.page + 1;
+        return nextPage > lastPage.total_pages ? null : nextPage;
+      },
+    });
 
   useEffect(() => {
     if (error) {
@@ -58,8 +61,12 @@ export const useUpcomming = () => {
     }
   }, [error]);
 
+  //console.log('has next page', hasNextPage);
+
   return {
-    upcomming: data?.results,
+    upcomming: data?.pages.flatMap(item => item.results),
     upcommingLoading: isLoading,
+    hasNextPage,
+    fetchNextPage,
   };
 };
